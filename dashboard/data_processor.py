@@ -198,6 +198,62 @@ def process_data():
     # === PRICE BAND DISTRIBUTION ===
     price_band_counts = restaurants_df['price_band'].value_counts().to_dict()
     
+    # === PRICE TIER FOIE GRAS PREVALENCE ===
+    price_tier_foie = {}
+    tier_order = ['$30 and under', '$31 to $50', '$50 and over']
+    for band in tier_order:
+        band_rests = restaurants_df[restaurants_df['price_band'] == band]
+        band_ids = set(band_rests['restaurant_id'].unique())
+        band_foie = band_ids.intersection(foie_restaurant_ids)
+        if len(band_ids) > 0:
+            price_tier_foie[band] = {
+                "total": len(band_ids),
+                "with_foie": len(band_foie),
+                "rate": round(len(band_foie) / len(band_ids) * 100, 1)
+            }
+    
+    # === CUISINE OF FOIE GRAS RESTAURANTS ===
+    foie_restaurants = restaurants_df[restaurants_df['restaurant_id'].isin(foie_restaurant_ids)]
+    foie_cuisines = {}
+    for cuisine in foie_restaurants['cuisine_type'].dropna():
+        # Simplify cuisine to primary type
+        primary = cuisine.split(',')[0].strip()
+        foie_cuisines[primary] = foie_cuisines.get(primary, 0) + 1
+    # Sort by count
+    foie_cuisines = dict(sorted(foie_cuisines.items(), key=lambda x: x[1], reverse=True))
+    
+    # === ORIGIN MENTIONS ANALYSIS ===
+    origin_data = {"Hudson Valley": 0, "No origin specified": 0}
+    for _, item in foie_items.iterrows():
+        title_desc = str(item.get('title', '')).lower() + ' ' + str(item.get('description', '')).lower()
+        if 'hudson' in title_desc or 'hudson valley' in title_desc:
+            origin_data["Hudson Valley"] += 1
+        else:
+            origin_data["No origin specified"] += 1
+    
+    # === PRICE COMPARISON DATA ===
+    # Filter out drinks for fair comparison
+    drink_keywords = ['wine', 'champagne', 'whisky', 'bourbon', 'cognac', 'scotch', 
+                      'vodka', 'gin', 'rum', 'tequila', 'bottle', 'beer', 'cocktail']
+    food_mask = ~menu_df['title'].str.lower().str.contains('|'.join(drink_keywords), na=False)
+    food_prices = pd.to_numeric(menu_df[food_mask]['price'], errors='coerce').dropna()
+    food_prices = food_prices[(food_prices > 0) & (food_prices <= 500)]
+    
+    price_comparison = {
+        "foie_gras_median": round(foie_prices.median(), 2) if len(foie_prices) > 0 else None,
+        "foie_gras_mean": round(foie_prices.mean(), 2) if len(foie_prices) > 0 else None,
+        "all_food_median": round(food_prices.median(), 2) if len(food_prices) > 0 else None,
+        "premium_pct": round(((foie_prices.median() - food_prices.median()) / food_prices.median()) * 100, 1) if len(foie_prices) > 0 and len(food_prices) > 0 else None
+    }
+    
+    # === FOIE GRAS PRICE DISTRIBUTION ===
+    foie_price_dist = {
+        "under_15": int(len(foie_prices[foie_prices < 15])),
+        "15_to_25": int(len(foie_prices[(foie_prices >= 15) & (foie_prices < 25)])),
+        "25_to_35": int(len(foie_prices[(foie_prices >= 25) & (foie_prices < 35)])),
+        "35_plus": int(len(foie_prices[foie_prices >= 35]))
+    }
+    
     return {
         "stats": stats,
         "states": state_data,
@@ -205,6 +261,11 @@ def process_data():
         "cuisines": cuisine_counts,
         "price_bands": price_band_counts,
         "foie_sections": foie_by_section,
+        "price_tier_foie": price_tier_foie,
+        "foie_cuisines": foie_cuisines,
+        "origin_data": origin_data,
+        "price_comparison": price_comparison,
+        "foie_price_dist": foie_price_dist,
     }
 
 

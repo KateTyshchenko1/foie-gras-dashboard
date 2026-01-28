@@ -125,10 +125,37 @@
       <div class="charts-row">
         <section class="chart-section">
           <h2 class="section-title">Foie Gras by Menu Section</h2>
-          <p class="section-desc">How foie gras dishes are categorized on menus</p>
+          <p class="section-desc">Q6: What category does foie gras appear in?</p>
           <canvas id="sectionChart"></canvas>
         </section>
         
+        <!-- Cuisine Breakdown -->
+        <section class="chart-section">
+          <h2 class="section-title">Cuisines Serving Foie Gras</h2>
+          <p class="section-desc">Which restaurant types are most likely to offer it</p>
+          <canvas id="cuisineChart"></canvas>
+        </section>
+      </div>
+      
+      <!-- Price Analysis Row -->
+      <div class="charts-row">
+        <!-- Price Tier Prevalence -->
+        <section class="chart-section">
+          <h2 class="section-title">Foie Gras by Restaurant Price Tier</h2>
+          <p class="section-desc">Q1: Upscale restaurants are 6x more likely to serve foie gras</p>
+          <canvas id="priceTierChart"></canvas>
+        </section>
+        
+        <!-- Origin/Sourcing -->
+        <section class="chart-section">
+          <h2 class="section-title">Origin & Sourcing</h2>
+          <p class="section-desc">Q7: Where does the foie gras come from?</p>
+          <canvas id="originChart"></canvas>
+        </section>
+      </div>
+      
+      <!-- About This Study -->
+      <div class="charts-row">
         <section class="chart-section findings">
           <h2 class="section-title">About This Study</h2>
           <div class="findings-list about-study">
@@ -148,6 +175,19 @@
             </div>
             <div class="finding-item study-note">
               <span class="finding-text">Data collected from OpenTable via menu scraping. Study designed to understand foie gras presence and positioning on American restaurant menus.</span>
+            </div>
+          </div>
+        </section>
+        
+        <section class="chart-section findings">
+          <h2 class="section-title">Legal Note</h2>
+          <div class="findings-list about-study">
+            <div class="finding-item">
+              <span class="finding-number">CA</span>
+              <span class="finding-text">Only state with active foie gras ban</span>
+            </div>
+            <div class="finding-item study-note">
+              <span class="finding-text">NYC's ban was overturned in June 2024. This study covers 11 states + DC where foie gras sales are legal.</span>
             </div>
           </div>
         </section>
@@ -397,6 +437,106 @@
                   borderWidth: 0,
                 },
               ],
+            },
+            options: {
+              responsive: true,
+              plugins: {
+                legend: {
+                  position: "right",
+                  labels: { color: "#4a5568", boxWidth: 15 },
+                },
+              },
+            },
+          });
+        });
+        
+      // Load cuisine breakdown for foie gras restaurants
+      fetch("/api/foie-cuisines")
+        .then((res) => res.json())
+        .then((cuisines) => {
+          const labels = Object.keys(cuisines).slice(0, 8);
+          const data = labels.map(l => cuisines[l]);
+          
+          new Chart(document.getElementById("cuisineChart"), {
+            type: "bar",
+            data: {
+              labels: labels,
+              datasets: [{
+                data: data,
+                backgroundColor: "#c9a957",
+                borderRadius: 4,
+              }],
+            },
+            options: {
+              responsive: true,
+              indexAxis: 'y',
+              plugins: {
+                legend: { display: false },
+              },
+              scales: {
+                x: { grid: { display: false }, ticks: { color: "#4a5568" } },
+                y: { grid: { display: false }, ticks: { color: "#4a5568" } },
+              },
+            },
+          });
+        });
+        
+      // Load price tier prevalence
+      fetch("/api/price-tier-foie")
+        .then((res) => res.json())
+        .then((tiers) => {
+          const tierOrder = ['$30 and under', '$31 to $50', '$50 and over'];
+          const labels = tierOrder.filter(t => tiers[t]);
+          const data = labels.map(l => tiers[l].rate);
+          
+          new Chart(document.getElementById("priceTierChart"), {
+            type: "bar",
+            data: {
+              labels: labels,
+              datasets: [{
+                label: "% with Foie Gras",
+                data: data,
+                backgroundColor: ["#9ca3af", "#c9a957", "#3d7a6a"],
+                borderRadius: 4,
+              }],
+            },
+            options: {
+              responsive: true,
+              plugins: {
+                legend: { display: false },
+              },
+              scales: {
+                y: { 
+                  beginAtZero: true,
+                  max: 12,
+                  grid: { display: true, color: "#f0f0f0" },
+                  ticks: { 
+                    color: "#4a5568",
+                    callback: (v) => v + "%"
+                  }
+                },
+                x: { grid: { display: false }, ticks: { color: "#4a5568" } },
+              },
+            },
+          });
+        });
+        
+      // Load origin/sourcing data
+      fetch("/api/origin-data")
+        .then((res) => res.json())
+        .then((origins) => {
+          const labels = Object.keys(origins);
+          const data = labels.map(l => origins[l]);
+          
+          new Chart(document.getElementById("originChart"), {
+            type: "doughnut",
+            data: {
+              labels: labels,
+              datasets: [{
+                data: data,
+                backgroundColor: ["#c9a957", "#9ca3af"],
+                borderWidth: 0,
+              }],
             },
             options: {
               responsive: true,

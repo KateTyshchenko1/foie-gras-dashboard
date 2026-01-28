@@ -74,5 +74,40 @@ def api_foie_sections():
     return jsonify(data.get('foie_sections', {}))
 
 
+@app.route('/api/price-tier-foie')
+def api_price_tier_foie():
+    """Return foie gras prevalence by restaurant price tier."""
+    data = get_data()
+    return jsonify(data.get('price_tier_foie', {}))
+
+
+@app.route('/api/foie-cuisines')
+def api_foie_cuisines():
+    """Return cuisine breakdown of restaurants with foie gras."""
+    data = get_data()
+    return jsonify(data.get('foie_cuisines', {}))
+
+
+@app.route('/api/origin-data')
+def api_origin_data():
+    """Return origin/sourcing mentions for foie gras items."""
+    data = get_data()
+    return jsonify(data.get('origin_data', {}))
+
+
+@app.route('/api/price-comparison')
+def api_price_comparison():
+    """Return price comparison data (foie gras vs all food)."""
+    data = get_data()
+    return jsonify(data.get('price_comparison', {}))
+
+
+@app.route('/api/foie-price-dist')
+def api_foie_price_dist():
+    """Return foie gras price distribution."""
+    data = get_data()
+    return jsonify(data.get('foie_price_dist', {}))
+
+
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5001)

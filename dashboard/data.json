@@ -347,5 +347,54 @@
     "Appetizers/Starters": 10,
     "Main Courses": 3,
     "Specials/Features": 2
+  },
+  "price_tier_foie": {
+    "$30 and under": {
+      "total": 195,
+      "with_foie": 3,
+      "rate": 1.5
+    },
+    "$31 to $50": {
+      "total": 218,
+      "with_foie": 10,
+      "rate": 4.6
+    },
+    "$50 and over": {
+      "total": 107,
+      "with_foie": 10,
+      "rate": 9.3
+    }
+  },
+  "foie_cuisines": {
+    "French": 4,
+    "Steakhouse": 3,
+    "European": 3,
+    "Italian": 3,
+    "Latin American": 2,
+    "American": 2,
+    "International": 1,
+    "Traditional Spanish": 1,
+    "Unspecified": 1,
+    "Tapas / Small Plates": 1,
+    "Seafood": 1,
+    "Organic": 1,
+    "Bistro": 1,
+    "Steak": 1
+  },
+  "origin_data": {
+    "Hudson Valley": 8,
+    "No origin specified": 31
+  },
+  "price_comparison": {
+    "foie_gras_median": 25.0,
+    "foie_gras_mean": 25.36,
+    "all_food_median": 16.0,
+    "premium_pct": 56.2
+  },
+  "foie_price_dist": {
+    "under_15": 1,
+    "15_to_25": 13,
+    "25_to_35": 12,
+    "35_plus": 4
   }
 }
