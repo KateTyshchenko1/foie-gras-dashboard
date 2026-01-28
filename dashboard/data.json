@@ -1,0 +1,351 @@
+{
+  "stats": {
+    "total_restaurants": 551,
+    "total_menu_items": 43040,
+    "total_foie_gras_items": 39,
+    "restaurants_with_foie": 23,
+    "avg_foie_price": 25.36,
+    "min_foie_price": 9.0,
+    "max_foie_price": 45.0,
+    "median_food_price": 16.0,
+    "median_foie_price": 25.0,
+    "foie_price_premium_pct": 56.2
+  },
+  "states": [
+    {
+      "state": "FL",
+      "state_name": "Florida",
+      "restaurant_count": 118,
+      "restaurants_with_foie": 6
+    },
+    {
+      "state": "PA",
+      "state_name": "Pennsylvania",
+      "restaurant_count": 73,
+      "restaurants_with_foie": 1
+    },
+    {
+      "state": "OH",
+      "state_name": "Ohio",
+      "restaurant_count": 66,
+      "restaurants_with_foie": 4
+    },
+    {
+      "state": "NC",
+      "state_name": "North Carolina",
+      "restaurant_count": 60,
+      "restaurants_with_foie": 2
+    },
+    {
+      "state": "OR",
+      "state_name": "Oregon",
+      "restaurant_count": 36,
+      "restaurants_with_foie": 1
+    },
+    {
+      "state": "NJ",
+      "state_name": "New Jersey",
+      "restaurant_count": 35,
+      "restaurants_with_foie": 1
+    },
+    {
+      "state": "WA",
+      "state_name": "Washington",
+      "restaurant_count": 35,
+      "restaurants_with_foie": 1
+    },
+    {
+      "state": "MD",
+      "state_name": "Maryland",
+      "restaurant_count": 35,
+      "restaurants_with_foie": 1
+    },
+    {
+      "state": "MA",
+      "state_name": "Massachusetts",
+      "restaurant_count": 30,
+      "restaurants_with_foie": 3
+    },
+    {
+      "state": "CO",
+      "state_name": "Colorado",
+      "restaurant_count": 25,
+      "restaurants_with_foie": 2
+    },
+    {
+      "state": "DC",
+      "state_name": "District of Columbia",
+      "restaurant_count": 25,
+      "restaurants_with_foie": 1
+    }
+  ],
+  "cities": [
+    {
+      "city": "Miami",
+      "lat": 25.7617,
+      "lng": -80.1918,
+      "restaurant_count": 43,
+      "foie_gras_items": 4,
+      "restaurants_with_foie": 3
+    },
+    {
+      "city": "Orlando",
+      "lat": 28.5383,
+      "lng": -81.3792,
+      "restaurant_count": 34,
+      "foie_gras_items": 0,
+      "restaurants_with_foie": 0
+    },
+    {
+      "city": "Tampa",
+      "lat": 27.9506,
+      "lng": -82.4572,
+      "restaurant_count": 32,
+      "foie_gras_items": 1,
+      "restaurants_with_foie": 1
+    },
+    {
+      "city": "Philadelphia",
+      "lat": 39.9526,
+      "lng": -75.1652,
+      "restaurant_count": 42,
+      "foie_gras_items": 2,
+      "restaurants_with_foie": 1
+    },
+    {
+      "city": "Pittsburgh",
+      "lat": 40.4406,
+      "lng": -79.9959,
+      "restaurant_count": 30,
+      "foie_gras_items": 0,
+      "restaurants_with_foie": 0
+    },
+    {
+      "city": "Columbus",
+      "lat": 39.9612,
+      "lng": -82.9988,
+      "restaurant_count": 20,
+      "foie_gras_items": 3,
+      "restaurants_with_foie": 1
+    },
+    {
+      "city": "Cleveland",
+      "lat": 41.4993,
+      "lng": -81.6944,
+      "restaurant_count": 21,
+      "foie_gras_items": 8,
+      "restaurants_with_foie": 3
+    },
+    {
+      "city": "Cincinnati",
+      "lat": 39.1031,
+      "lng": -84.512,
+      "restaurant_count": 22,
+      "foie_gras_items": 0,
+      "restaurants_with_foie": 0
+    },
+    {
+      "city": "Charlotte",
+      "lat": 35.2271,
+      "lng": -80.8431,
+      "restaurant_count": 25,
+      "foie_gras_items": 2,
+      "restaurants_with_foie": 2
+    },
+    {
+      "city": "Raleigh",
+      "lat": 35.7796,
+      "lng": -78.6382,
+      "restaurant_count": 25,
+      "foie_gras_items": 0,
+      "restaurants_with_foie": 0
+    },
+    {
+      "city": "Asheville",
+      "lat": 35.5951,
+      "lng": -82.5515,
+      "restaurant_count": 10,
+      "foie_gras_items": 0,
+      "restaurants_with_foie": 0
+    },
+    {
+      "city": "Jersey City",
+      "lat": 40.7178,
+      "lng": -74.0431,
+      "restaurant_count": 15,
+      "foie_gras_items": 2,
+      "restaurants_with_foie": 1
+    },
+    {
+      "city": "Newark",
+      "lat": 40.7357,
+      "lng": -74.1724,
+      "restaurant_count": 10,
+      "foie_gras_items": 0,
+      "restaurants_with_foie": 0
+    },
+    {
+      "city": "Princeton",
+      "lat": 40.3573,
+      "lng": -74.6672,
+      "restaurant_count": 10,
+      "foie_gras_items": 0,
+      "restaurants_with_foie": 0
+    },
+    {
+      "city": "Seattle",
+      "lat": 47.6062,
+      "lng": -122.3321,
+      "restaurant_count": 25,
+      "foie_gras_items": 1,
+      "restaurants_with_foie": 1
+    },
+    {
+      "city": "Tacoma",
+      "lat": 47.2529,
+      "lng": -122.4443,
+      "restaurant_count": 5,
+      "foie_gras_items": 0,
+      "restaurants_with_foie": 0
+    },
+    {
+      "city": "Spokane",
+      "lat": 47.6588,
+      "lng": -117.426,
+      "restaurant_count": 5,
+      "foie_gras_items": 0,
+      "restaurants_with_foie": 0
+    },
+    {
+      "city": "Boston",
+      "lat": 42.3601,
+      "lng": -71.0589,
+      "restaurant_count": 20,
+      "foie_gras_items": 4,
+      "restaurants_with_foie": 3
+    },
+    {
+      "city": "Cambridge",
+      "lat": 42.3736,
+      "lng": -71.1097,
+      "restaurant_count": 5,
+      "foie_gras_items": 0,
+      "restaurants_with_foie": 0
+    },
+    {
+      "city": "Worcester",
+      "lat": 42.2626,
+      "lng": -71.8023,
+      "restaurant_count": 5,
+      "foie_gras_items": 0,
+      "restaurants_with_foie": 0
+    },
+    {
+      "city": "Baltimore",
+      "lat": 39.2904,
+      "lng": -76.6122,
+      "restaurant_count": 15,
+      "foie_gras_items": 0,
+      "restaurants_with_foie": 0
+    },
+    {
+      "city": "Bethesda",
+      "lat": 38.9847,
+      "lng": -77.0947,
+      "restaurant_count": 12,
+      "foie_gras_items": 3,
+      "restaurants_with_foie": 1
+    },
+    {
+      "city": "Annapolis",
+      "lat": 38.9784,
+      "lng": -76.4922,
+      "restaurant_count": 5,
+      "foie_gras_items": 0,
+      "restaurants_with_foie": 0
+    },
+    {
+      "city": "Portland",
+      "lat": 45.5152,
+      "lng": -122.6784,
+      "restaurant_count": 26,
+      "foie_gras_items": 1,
+      "restaurants_with_foie": 1
+    },
+    {
+      "city": "Eugene",
+      "lat": 44.0521,
+      "lng": -123.0868,
+      "restaurant_count": 7,
+      "foie_gras_items": 0,
+      "restaurants_with_foie": 0
+    },
+    {
+      "city": "Bend",
+      "lat": 44.0582,
+      "lng": -121.3153,
+      "restaurant_count": 4,
+      "foie_gras_items": 0,
+      "restaurants_with_foie": 0
+    },
+    {
+      "city": "Denver",
+      "lat": 39.7392,
+      "lng": -104.9903,
+      "restaurant_count": 18,
+      "foie_gras_items": 2,
+      "restaurants_with_foie": 1
+    },
+    {
+      "city": "Boulder",
+      "lat": 40.015,
+      "lng": -105.2705,
+      "restaurant_count": 4,
+      "foie_gras_items": 0,
+      "restaurants_with_foie": 0
+    },
+    {
+      "city": "Colorado Springs",
+      "lat": 38.8339,
+      "lng": -104.8214,
+      "restaurant_count": 3,
+      "foie_gras_items": 1,
+      "restaurants_with_foie": 1
+    },
+    {
+      "city": "Washington",
+      "lat": 38.9072,
+      "lng": -77.0369,
+      "restaurant_count": 23,
+      "foie_gras_items": 1,
+      "restaurants_with_foie": 1
+    }
+  ],
+  "cuisines": {
+    "American": 32,
+    "Italian": 21,
+    "Steakhouse, Steak, Seafood": 10,
+    "Steakhouse, Seafood, American": 10,
+    "Contemporary American": 9,
+    "Steak, Seafood, American": 9,
+    "Steakhouse, Italian, Seafood": 8,
+    "French": 7,
+    "Contemporary American, American": 7,
+    "Steakhouse": 6
+  },
+  "price_bands": {
+    "$31 to $50": 226,
+    "$30 and under": 198,
+    "$50 and over": 117,
+    "$41 to $100": 4,
+    "$101 and over": 3,
+    "$40 and under": 2,
+    "AED 110 and under": 1
+  },
+  "foie_sections": {
+    "Other/Uncategorized": 24,
+    "Appetizers/Starters": 10,
+    "Main Courses": 3,
+    "Specials/Features": 2
+  }
+}
