@@ -9,74 +9,88 @@
     "max_foie_price": 45.0,
     "median_food_price": 16.0,
     "median_foie_price": 25.0,
-    "foie_price_premium_pct": 56.2
+    "foie_price_premium_pct": 56.2,
+    "multi_offering_pct": 39.1,
+    "avg_foie_per_restaurant": 1.7,
+    "restaurants_with_multiple_foie": 9
   },
   "states": [
     {
       "state": "FL",
       "state_name": "Florida",
       "restaurant_count": 118,
-      "restaurants_with_foie": 6
+      "restaurants_with_foie": 6,
+      "foie_rate": 5.1
     },
     {
       "state": "PA",
       "state_name": "Pennsylvania",
       "restaurant_count": 73,
-      "restaurants_with_foie": 1
+      "restaurants_with_foie": 1,
+      "foie_rate": 1.4
     },
     {
       "state": "OH",
       "state_name": "Ohio",
       "restaurant_count": 66,
-      "restaurants_with_foie": 4
+      "restaurants_with_foie": 4,
+      "foie_rate": 6.1
     },
     {
       "state": "NC",
       "state_name": "North Carolina",
       "restaurant_count": 60,
-      "restaurants_with_foie": 2
+      "restaurants_with_foie": 2,
+      "foie_rate": 3.3
     },
     {
       "state": "OR",
       "state_name": "Oregon",
       "restaurant_count": 36,
-      "restaurants_with_foie": 1
+      "restaurants_with_foie": 1,
+      "foie_rate": 2.8
     },
     {
       "state": "NJ",
       "state_name": "New Jersey",
       "restaurant_count": 35,
-      "restaurants_with_foie": 1
+      "restaurants_with_foie": 1,
+      "foie_rate": 2.9
     },
     {
       "state": "WA",
       "state_name": "Washington",
       "restaurant_count": 35,
-      "restaurants_with_foie": 1
+      "restaurants_with_foie": 1,
+      "foie_rate": 2.9
     },
     {
       "state": "MD",
       "state_name": "Maryland",
       "restaurant_count": 35,
-      "restaurants_with_foie": 1
+      "restaurants_with_foie": 1,
+      "foie_rate": 2.9
     },
     {
       "state": "MA",
       "state_name": "Massachusetts",
       "restaurant_count": 30,
-      "restaurants_with_foie": 3
+      "restaurants_with_foie": 3,
+      "foie_rate": 10.0
     },
     {
       "state": "CO",
       "state_name": "Colorado",
       "restaurant_count": 25,
-      "restaurants_with_foie": 2
+      "restaurants_with_foie": 2,
+      "foie_rate": 8.0
     },
     {
       "state": "DC",
       "state_name": "District of Columbia",
       "restaurant_count": 25,
-      "restaurants_with_foie": 1
+      "restaurants_with_foie": 1,
+      "foie_rate": 4.0
     }
   ],
   "cities": [
@@ -396,5 +410,103 @@
     "15_to_25": 13,
     "25_to_35": 12,
     "35_plus": 4
+  },
+  "sample_foie_items": [
+    {
+      "title": "Foie Gras Mi-Cuit",
+      "description": "With cancha, raisins and toast",
+      "price": 27.0,
+      "restaurant": "EDAN BISTRO",
+      "city": "North Miami",
+      "state": "FL",
+      "section": "Mains"
+    },
+    {
+      "title": "Homemade Duck Foie Gras Terrine with Apple Chutney and Toast",
+      "description": "Foie Gras maison, chutney de pommes et son toast.",
+      "price": 28.0,
+      "restaurant": "Amour de Miami",
+      "city": "Miami",
+      "state": "FL",
+      "section": "Appetizers"
+    },
+    {
+      "title": "Foie Gras Toast",
+      "description": "foie gras mousse | strawberry jam | poached rhubarb | pickled onion | sourdough",
+      "price": 18.0,
+      "restaurant": "Aleksandar",
+      "city": "Philadelphia",
+      "state": "PA",
+      "section": "Startes and Salads"
+    },
+    {
+      "title": "Seared Hudson Valley Foie Gras",
+      "description": "apple tarte Tatin, pickled cherries",
+      "price": 45.0,
+      "restaurant": "DANTE",
+      "city": "Cleveland",
+      "state": "OH",
+      "section": "Specialty Meats"
+    },
+    {
+      "title": "Foie Gras",
+      "description": "seared foie gras, demi glaze",
+      "price": 18.0,
+      "restaurant": "Oliva Steakhouse",
+      "city": "Cleveland",
+      "state": "OH",
+      "section": "LA SALCA"
+    },
+    {
+      "title": "Pate of Hudson Valley Foie Gras",
+      "description": "Brioche, radish, jam, sea salt",
+      "price": 23.0,
+      "restaurant": "Giovannis",
+      "city": "Cleveland",
+      "state": "OH",
+      "section": "Antipasti Freddi"
+    },
+    {
+      "title": "Torchon of Foie Gras",
+      "description": "Local nectarine mostarda, fleur de sel, toasted brioche, hazelnut tuille. Perfectly paired with a glass of Sauternes +$12",
+      "price": 25.0,
+      "restaurant": "Mariposa",
+      "city": "Charlotte",
+      "state": "NC",
+      "section": "Small Shareables"
+    },
+    {
+      "title": "Seared Foie Gras* (GF)",
+      "description": "over Apple Chutney, Bacon Praline, and Cherry Gastrique",
+      "price": 21.0,
+      "restaurant": "The Fig Tree Restaurant - Charlotte, NC",
+      "city": "Charlotte",
+      "state": "NC",
+      "section": "Appetizers"
+    },
+    {
+      "title": "Pat\u00e9 of Duck Liver & Foie Gras",
+      "description": "toast rounds",
+      "price": 19.0,
+      "restaurant": "Bistro La Source",
+      "city": "Jersey City",
+      "state": "NJ",
+      "section": "Starters"
+    },
+    {
+      "title": "Seared Hudson Valley Foie Gras",
+      "description": "with fig br\u00fbl\u00e9e, pomegranate",
+      "price": 28.0,
+      "restaurant": "Bistro La Source",
+      "city": "Jersey City",
+      "state": "NJ",
+      "section": "Starters"
+    }
+  ],
+  "european_insight": {
+    "foie_count": 15,
+    "foie_pct": 65.2,
+    "total_count": 203,
+    "total_pct": 36.8
   }
 }

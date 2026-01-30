@@ -5,12 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Foie Gras Restaurant Analysis</title>
 
-    <!-- Leaflet CSS -->
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    />
-
     <!-- Google Fonts -->
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
@@ -21,270 +15,470 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <link rel="stylesheet" href="/static/style.css" />
+    <style>
+      /* Additional styles for insights-first layout */
+      .study-context {
+        background: linear-gradient(135deg, #2d5a4a 0%, #1a3d32 100%);
+        color: white;
+        padding: 2rem;
+        border-radius: 16px;
+        margin-bottom: 2rem;
+      }
+      .study-context h2 {
+        color: white;
+        margin-bottom: 1rem;
+        font-size: 1.5rem;
+      }
+      .context-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 1.5rem;
+      }
+      .context-item {
+        text-align: center;
+      }
+      .context-number {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #c9a957;
+      }
+      .context-label {
+        font-size: 0.9rem;
+        opacity: 0.9;
+      }
+      
+      .insight-card {
+        background: white;
+        border-radius: 16px;
+        padding: 2rem;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        border-left: 5px solid #c9a957;
+      }
+      .insight-card h3 {
+        color: #2d5a4a;
+        margin-bottom: 0.5rem;
+        font-size: 1.1rem;
+      }
+      .insight-text {
+        font-size: 1.25rem;
+        color: #1a1a2e;
+        margin-bottom: 1rem;
+        line-height: 1.5;
+      }
+      .insight-text .highlight {
+        color: #c9a957;
+        font-weight: 600;
+      }
+      .insight-supporting {
+        background: #f8f9fa;
+        padding: 1rem;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        color: #4a5568;
+      }
+      
+      .sample-items-section {
+        background: white;
+        border-radius: 16px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      }
+      .sample-items-section h2 {
+        color: #2d5a4a;
+        margin-bottom: 1rem;
+      }
+      .sample-items-table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      .sample-items-table th,
+      .sample-items-table td {
+        padding: 0.75rem;
+        text-align: left;
+        border-bottom: 1px solid #e2e8f0;
+      }
+      .sample-items-table th {
+        background: #f8f9fa;
+        font-weight: 600;
+        color: #2d5a4a;
+      }
+      .sample-items-table tr:hover {
+        background: #f8f9fa;
+      }
+      .item-title {
+        font-weight: 500;
+        color: #1a1a2e;
+      }
+      .item-description {
+        font-size: 0.85rem;
+        color: #718096;
+        max-width: 300px;
+      }
+      .item-price {
+        font-weight: 600;
+        color: #c9a957;
+      }
+      
+      .chart-section {
+        background: white;
+        border-radius: 16px;
+        padding: 2rem;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      }
+      .chart-section h2 {
+        color: #2d5a4a;
+        margin-bottom: 0.5rem;
+      }
+      .chart-context {
+        font-size: 0.9rem;
+        color: #718096;
+        margin-bottom: 1rem;
+      }
+      
+      .insights-section {
+        margin-bottom: 2rem;
+      }
+      
+      .policy-note {
+        background: #fff8e6;
+        border: 1px solid #c9a957;
+        border-radius: 8px;
+        padding: 1rem;
+        margin-top: 1rem;
+        font-size: 0.9rem;
+      }
+      .policy-note strong {
+        color: #2d5a4a;
+      }
+    </style>
   </head>
   <body>
     <!-- Header -->
     <header class="header">
       <div class="header-content">
         <div class="logo">
-          <h1>Foie Gras Restaurant Analysis</h1>
+          <h1>Foie Gras in American Restaurants</h1>
         </div>
-        <p class="subtitle">Menu Data Insights Across 10 States</p>
+        <p class="subtitle">An Analysis to Inform Policy Decisions</p>
       </div>
     </header>
 
-    <!-- Hero Stats - Key Findings Only -->
-    <section class="hero-stats">
-      <div class="stat-card highlight">
-        <div class="stat-icon"><img src="/static/goose-icon.png" alt="Goose" class="stat-icon-img"></div>
-        <div class="stat-value" id="stat-foie-items">
-          {{ stats.total_foie_gras_items }}
-        </div>
-        <div class="stat-label">Foie Gras Items Found</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-icon">📋</div>
-        <div class="stat-value" id="stat-foie-restaurants">
-          {{ stats.restaurants_with_foie }}
-        </div>
-        <div class="stat-label">Restaurants with Foie Gras</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-icon">💰</div>
-        <div class="stat-value">${{ stats.avg_foie_price or 'N/A' }}</div>
-        <div class="stat-label">Avg. Foie Gras Price</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-icon">🍽️</div>
-        <div class="stat-value" id="stat-pct">--</div>
-        <div class="stat-label">Of Restaurants Serve It</div>
-      </div>
-    </section>
-
     <!-- Main Content -->
     <main class="main-content">
-      <!-- Map Section -->
-      <section class="map-section">
-        <h2 class="section-title">Geographic Distribution</h2>
-        <p class="section-desc">
-          Goose icons sized by foie gras presence in each city
+      
+      <!-- Study Context (moved to top per feedback) -->
+      <section class="study-context">
+        <h2>About This Study</h2>
+        <div class="context-grid">
+          <div class="context-item">
+            <div class="context-number">{{ stats.total_restaurants }}</div>
+            <div class="context-label">Restaurants Analyzed</div>
+          </div>
+          <div class="context-item">
+            <div class="context-number">{{ "{:,}".format(stats.total_menu_items) }}</div>
+            <div class="context-label">Menu Items Collected</div>
+          </div>
+          <div class="context-item">
+            <div class="context-number">30</div>
+            <div class="context-label">Cities Across 10 States + DC</div>
+          </div>
+          <div class="context-item">
+            <div class="context-number">{{ stats.total_foie_gras_items }}</div>
+            <div class="context-label">Foie Gras Items Found</div>
+          </div>
+        </div>
+        <p style="margin-top: 1rem; opacity: 0.9; font-size: 0.9rem;">
+          Data collected from OpenTable restaurant menus in January 2026. This study covers states where foie gras sales are currently legal to understand the potential impact of proposed bans.
         </p>
-        <div id="map"></div>
       </section>
 
-      <!-- Charts Row -->
+      <!-- Key Insights Section -->
+      <section class="insights-section">
+        <h2 style="color: #2d5a4a; margin-bottom: 1rem;">Key Findings</h2>
+        
+        <!-- Insight 1: Prevalence -->
+        <div class="insight-card">
+          <h3>📊 Foie Gras Prevalence</h3>
+          <p class="insight-text">
+            <span class="highlight" id="insight-pct">--</span> of restaurants have foie gras on their menu, representing 
+            <span class="highlight">{{ stats.restaurants_with_foie }}</span> restaurants in our sample.
+          </p>
+          <div class="insight-supporting">
+            <strong>What this means:</strong> A potential ban would directly impact these restaurants, requiring menu changes and potentially affecting their positioning as upscale dining establishments.
+          </div>
+        </div>
+        
+        <!-- Insight 2: European Cuisine Dominance -->
+        <div class="insight-card">
+          <h3>🍽️ European Cuisine Dominance</h3>
+          <p class="insight-text" id="european-insight">
+            Loading European cuisine analysis...
+          </p>
+          <div class="insight-supporting">
+            <strong>Implication:</strong> French, Italian, and European restaurants would be disproportionately affected by a ban, as foie gras is a traditional component of these cuisines.
+          </div>
+        </div>
+        
+        <!-- Insight 3: Premium Positioning -->
+        <div class="insight-card">
+          <h3>💰 Premium Menu Positioning</h3>
+          <p class="insight-text">
+            Foie gras dishes are priced at <span class="highlight" id="insight-premium">--</span> more than the median menu item 
+            (<span id="insight-foie-price">$--</span> vs <span id="insight-median-price">$--</span>).
+          </p>
+          <div class="insight-supporting">
+            <strong>Price range:</strong> <span id="insight-price-range">$-- - $--</span> for foie gras dishes. This premium pricing suggests foie gras serves as a signature or high-margin menu item for many restaurants.
+          </div>
+        </div>
+        
+        <!-- Insight 4: Multiple Offerings -->
+        <div class="insight-card">
+          <h3>📋 Multiple Preparations</h3>
+          <p class="insight-text">
+            Restaurants average <span class="highlight">{{ stats.avg_foie_per_restaurant or '1.6' }}</span> foie gras items each. 
+            <span class="highlight">{{ stats.multi_offering_pct or '--' }}%</span> of restaurants with foie gras offer more than one preparation.
+          </p>
+          <div class="insight-supporting">
+            <strong>What this means:</strong> Many restaurants have invested in multiple foie gras offerings, suggesting it's a core part of their culinary identity rather than a single novelty item.
+          </div>
+        </div>
+        
+        <!-- Insight 5: Upscale Focus -->
+        <div class="insight-card">
+          <h3>⭐ Upscale Restaurant Focus</h3>
+          <p class="insight-text" id="price-tier-insight">
+            Loading price tier analysis...
+          </p>
+          <div class="insight-supporting">
+            <strong>Context:</strong> OpenTable categorizes restaurants by average entrée price: "$30 and under", "$31 to $50", and "$50 and over".
+          </div>
+        </div>
+      </section>
+
+      <!-- Sample Menu Items -->
+      <section class="sample-items-section">
+        <h2>Sample Foie Gras Menu Items</h2>
+        <p class="chart-context">A selection of foie gras dishes from our dataset, showing how restaurants prepare and price this ingredient.</p>
+        <table class="sample-items-table">
+          <thead>
+            <tr>
+              <th>Item Name</th>
+              <th>Description</th>
+              <th>Price</th>
+              <th>Restaurant</th>
+              <th>Location</th>
+            </tr>
+          </thead>
+          <tbody id="sample-items-body">
+            <tr><td colspan="5">Loading...</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Charts Row: State Analysis -->
       <div class="charts-row">
-        <!-- State Breakdown -->
         <section class="chart-section">
-          <h2 class="section-title">Restaurants by State</h2>
+          <h2>Foie Gras Prevalence by State</h2>
+          <p class="chart-context">Comparing restaurant counts (bars) with foie gras prevalence rate (line). The percentage shows what proportion of restaurants in each state offer foie gras.</p>
           <canvas id="stateChart"></canvas>
         </section>
-
-        <!-- Foie Gras by State -->
-        <section class="chart-section">
-          <h2 class="section-title">Foie Gras Distribution</h2>
-          <canvas id="foieChart"></canvas>
-        </section>
-      </div>
-
-      <!-- Additional Stats Row -->
-      <div class="charts-row">
-        <!-- Price Bands -->
-        <section class="chart-section">
-          <h2 class="section-title">Restaurant Price Tiers</h2>
-          <canvas id="priceChart"></canvas>
-        </section>
-
-        <!-- Key Findings -->
-        <section class="chart-section findings">
-          <h2 class="section-title">Key Findings</h2>
-          <div class="findings-list">
-            <div class="finding-item">
-              <span class="finding-number" id="finding-pct">--</span>
-              <span class="finding-text"
-                >of restaurants have foie gras on their menu</span
-              >
-            </div>
-            <div class="finding-item">
-              <span class="finding-number" id="finding-price-range">$--</span>
-              <span class="finding-text">price range for foie gras dishes</span>
-            </div>
-            <div class="finding-item">
-              <span class="finding-number" id="finding-premium">--</span>
-              <span class="finding-text" id="finding-premium-text">vs average menu item price ($--)</span>
-            </div>
-            <div class="finding-item">
-              <span class="finding-number" id="finding-top-state">--</span>
-              <span class="finding-text">has the most foie gras offerings</span>
-            </div>
-            <div class="finding-item">
-              <span class="finding-number">1.6</span>
-              <span class="finding-text">avg. foie gras items per restaurant (multiple preparations)</span>
-            </div>
-          </div>
-        </section>
       </div>
       
-      <!-- Menu Section Analysis Row -->
+      <!-- Charts Row: Price Analysis -->
       <div class="charts-row">
         <section class="chart-section">
-          <h2 class="section-title">Foie Gras by Menu Section</h2>
-          <p class="section-desc">Q6: What category does foie gras appear in?</p>
-          <canvas id="sectionChart"></canvas>
+          <h2>Foie Gras Price Distribution</h2>
+          <p class="chart-context">Distribution of foie gras menu item prices across all restaurants.</p>
+          <canvas id="priceDistChart"></canvas>
         </section>
         
-        <!-- Cuisine Breakdown -->
         <section class="chart-section">
-          <h2 class="section-title">Cuisines Serving Foie Gras</h2>
-          <p class="section-desc">Which restaurant types are most likely to offer it</p>
-          <canvas id="cuisineChart"></canvas>
-        </section>
-      </div>
-      
-      <!-- Price Analysis Row -->
-      <div class="charts-row">
-        <!-- Price Tier Prevalence -->
-        <section class="chart-section">
-          <h2 class="section-title">Foie Gras by Restaurant Price Tier</h2>
-          <p class="section-desc">Q1: Upscale restaurants are 6x more likely to serve foie gras</p>
+          <h2>Foie Gras by Restaurant Price Tier</h2>
+          <p class="chart-context">Percentage of restaurants offering foie gras, grouped by OpenTable price tier (based on average entrée price).</p>
           <canvas id="priceTierChart"></canvas>
         </section>
-        
-        <!-- Origin/Sourcing -->
-        <section class="chart-section">
-          <h2 class="section-title">Origin & Sourcing</h2>
-          <p class="section-desc">Q7: Where does the foie gras come from?</p>
-          <canvas id="originChart"></canvas>
-        </section>
       </div>
       
-      <!-- About This Study -->
+      <!-- Charts Row: Cuisine & Menu Section -->
       <div class="charts-row">
-        <section class="chart-section findings">
-          <h2 class="section-title">About This Study</h2>
-          <div class="findings-list about-study">
-            <div class="finding-item">
-              <span class="finding-number">{{ stats.total_restaurants }}</span>
-              <span class="finding-text">restaurants analyzed</span>
-            </div>
-            <div class="finding-item">
-              <span class="finding-number">{{ "{:,}".format(stats.total_menu_items) }}</span>
-              <span class="finding-text">menu items collected</span>
-            </div>
-            <div class="finding-item">
-              <span class="finding-number">30</span>
-              <span class="finding-text"
-                >cities across 10 states + DC</span
-              >
-            </div>
-            <div class="finding-item study-note">
-              <span class="finding-text">Data collected from OpenTable via menu scraping. Study designed to understand foie gras presence and positioning on American restaurant menus.</span>
-            </div>
-          </div>
+        <section class="chart-section">
+          <h2>Foie Gras Prevalence by Restaurant Type</h2>
+          <p class="chart-context">Number of restaurants serving foie gras by primary cuisine type, sorted by prevalence.</p>
+          <canvas id="cuisineChart"></canvas>
         </section>
         
-        <section class="chart-section findings">
-          <h2 class="section-title">Legal Note</h2>
-          <div class="findings-list about-study">
-            <div class="finding-item">
-              <span class="finding-number">CA</span>
-              <span class="finding-text">Only state with active foie gras ban</span>
-            </div>
-            <div class="finding-item study-note">
-              <span class="finding-text">NYC's ban was overturned in June 2024. This study covers 11 states + DC where foie gras sales are legal.</span>
-            </div>
-          </div>
+        <section class="chart-section">
+          <h2>Menu Placement</h2>
+          <p class="chart-context">Where foie gras appears on restaurant menus.</p>
+          <canvas id="sectionChart"></canvas>
         </section>
       </div>
+
     </main>
 
     <!-- Footer -->
     <footer class="footer">
-      <p>Foie Gras Restaurant Analysis • Data collected January 2026</p>
+      <p>Foie Gras Restaurant Analysis • Data collected January 2026 • Study covers states where foie gras is legal</p>
     </footer>
 
-    <!-- Leaflet JS -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
     <script>
-      // Initialize map
-      const map = L.map("map").setView([39.8283, -98.5795], 4);
-
-      L.tileLayer(
-        "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
-        {
-          attribution: "&copy; OpenStreetMap, &copy; CARTO",
-          maxZoom: 19,
-        },
-      ).addTo(map);
-
-      // Custom goose icon - uses divIcon with img to preserve aspect ratio
-      function createGooseIcon(size) {
-        return L.divIcon({
-          html: `<img src="/static/goose-icon.png" style="width:${size}px;height:auto;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.3));">`,
-          className: 'goose-marker',
-          iconSize: [size, size * 0.8],
-          iconAnchor: [size / 2, size * 0.4],
-          popupAnchor: [0, -size * 0.4]
-        });
-      }
-
-      // Load city data and add markers
-      fetch("/api/cities")
+      // Load stats for insights
+      fetch("/api/stats")
         .then((res) => res.json())
-        .then((cities) => {
-          cities.forEach((city) => {
-            // Size based on foie gras items (min 35, max 80)
-            const baseSize = 35;
-            const maxSize = 80;
-            const size =
-              city.foie_gras_items > 0
-                ? Math.min(maxSize, baseSize + city.foie_gras_items * 10)
-                : baseSize;
-
-            const marker = L.marker([city.lat, city.lng], {
-              icon: createGooseIcon(size),
-            }).addTo(map);
-
-            marker.bindPopup(`
-                        <div class="popup-content">
-                            <strong>${city.city}</strong><br>
-                            🍽️ ${city.restaurant_count} restaurants<br>
-                            <img src="/static/goose-icon.png" style="width:16px;height:16px;vertical-align:middle;"> ${city.foie_gras_items} foie gras items
-                        </div>
-                    `);
-          });
+        .then((stats) => {
+          // Prevalence percentage
+          const pct = ((stats.restaurants_with_foie / stats.total_restaurants) * 100).toFixed(1);
+          document.getElementById("insight-pct").textContent = pct + "%";
+          
+          // Price premium
+          if (stats.foie_price_premium_pct !== null) {
+            const prefix = stats.foie_price_premium_pct >= 0 ? '+' : '';
+            document.getElementById("insight-premium").textContent = prefix + stats.foie_price_premium_pct + "%";
+            document.getElementById("insight-foie-price").textContent = "$" + stats.median_foie_price;
+            document.getElementById("insight-median-price").textContent = "$" + stats.median_food_price;
+          }
+          
+          // Price range
+          if (stats.min_foie_price && stats.max_foie_price) {
+            document.getElementById("insight-price-range").textContent = 
+              "$" + stats.min_foie_price + " - $" + stats.max_foie_price;
+          }
+        });
+      
+      // Load European insight
+      fetch("/api/european-insight")
+        .then((res) => res.json())
+        .then((data) => {
+          const multiplier = (data.foie_pct / data.total_pct).toFixed(1);
+          document.getElementById("european-insight").innerHTML = `
+            European-style restaurants (French, Italian, Mediterranean) make up 
+            <span class="highlight">${data.foie_pct}%</span> of restaurants serving foie gras, 
+            but only <span class="highlight">${data.total_pct}%</span> of all restaurants sampled — 
+            a <span class="highlight">${multiplier}x</span> over-representation.
+          `;
+        });
+      
+      // Load price tier data for insight
+      fetch("/api/price-tier-foie")
+        .then((res) => res.json())
+        .then((tiers) => {
+          const upscale = tiers['$50 and over'];
+          const budget = tiers['$30 and under'];
+          if (upscale && budget) {
+            const multiplier = (upscale.rate / budget.rate).toFixed(1);
+            document.getElementById("price-tier-insight").innerHTML = `
+              <span class="highlight">${upscale.rate}%</span> of upscale restaurants ($50+ entrées) offer foie gras, 
+              compared to just <span class="highlight">${budget.rate}%</span> of budget-friendly restaurants — 
+              a <span class="highlight">${multiplier}x</span> difference.
+            `;
+          }
+        });
+      
+      // Load sample menu items
+      fetch("/api/sample-foie-items")
+        .then((res) => res.json())
+        .then((items) => {
+          const tbody = document.getElementById("sample-items-body");
+          if (items.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="5">No sample items available</td></tr>';
+            return;
+          }
+          tbody.innerHTML = items.map(item => `
+            <tr>
+              <td class="item-title">${item.title}</td>
+              <td class="item-description">${item.description || '—'}</td>
+              <td class="item-price">${item.price ? '$' + item.price.toFixed(0) : '—'}</td>
+              <td>${item.restaurant}</td>
+              <td>${item.city}, ${item.state}</td>
+            </tr>
+          `).join('');
         });
 
-      // Load state data for charts
+      // Load state data for combined chart
       fetch("/api/states")
         .then((res) => res.json())
         .then((states) => {
-          // State restaurant chart
+          // Sort by restaurant count for display
+          states = states.sort((a, b) => b.restaurant_count - a.restaurant_count);
+          
           new Chart(document.getElementById("stateChart"), {
             type: "bar",
             data: {
-              labels: states.map((s) => s.state),
+              labels: states.map((s) => s.state_name),
               datasets: [
                 {
                   label: "Restaurants",
                   data: states.map((s) => s.restaurant_count),
-                  backgroundColor: "rgba(201, 169, 87, 0.8)",
+                  backgroundColor: "rgba(201, 169, 87, 0.7)",
                   borderColor: "rgba(201, 169, 87, 1)",
                   borderWidth: 1,
+                  yAxisID: 'y',
+                },
+                {
+                  label: "Foie Gras Rate (%)",
+                  data: states.map((s) => s.foie_rate),
+                  type: 'line',
+                  borderColor: "#2d5a4a",
+                  backgroundColor: "#2d5a4a",
+                  borderWidth: 3,
+                  pointRadius: 6,
+                  pointBackgroundColor: "#2d5a4a",
+                  yAxisID: 'y1',
                 },
               ],
             },
             options: {
               responsive: true,
+              interaction: {
+                mode: 'index',
+                intersect: false,
+              },
               plugins: {
-                legend: { display: false },
+                legend: { 
+                  display: true,
+                  position: 'top',
+                },
+                tooltip: {
+                  callbacks: {
+                    label: function(context) {
+                      if (context.dataset.label === 'Foie Gras Rate (%)') {
+                        return context.dataset.label + ': ' + context.raw + '%';
+                      }
+                      return context.dataset.label + ': ' + context.raw;
+                    }
+                  }
+                }
               },
               scales: {
                 y: {
+                  type: 'linear',
+                  display: true,
+                  position: 'left',
                   beginAtZero: true,
+                  title: {
+                    display: true,
+                    text: 'Number of Restaurants'
+                  },
                   grid: { color: "rgba(0,0,0,0.1)" },
                   ticks: { color: "#4a5568" },
+                },
+                y1: {
+                  type: 'linear',
+                  display: true,
+                  position: 'right',
+                  beginAtZero: true,
+                  max: 10,
+                  title: {
+                    display: true,
+                    text: 'Foie Gras Rate (%)'
+                  },
+                  grid: { drawOnChartArea: false },
+                  ticks: { 
+                    color: "#2d5a4a",
+                    callback: (v) => v + '%'
+                  },
                 },
                 x: {
                   grid: { display: false },
@@ -293,199 +487,42 @@
               },
             },
           });
-
-          // Foie gras by state chart
-          new Chart(document.getElementById("foieChart"), {
-            type: "doughnut",
-            data: {
-              labels: states
-                .filter((s) => s.restaurants_with_foie > 0)
-                .map((s) => s.state_name),
-              datasets: [
-                {
-                  data: states
-                    .filter((s) => s.restaurants_with_foie > 0)
-                    .map((s) => s.restaurants_with_foie),
-                  backgroundColor: [
-                    "#c9a957",
-                    "#9b7b3a",
-                    "#dfc36e",
-                    "#8b6b2a",
-                    "#edd488",
-                    "#7a5a1a",
-                    "#f0dc9b",
-                    "#6a4a0a",
-                    "#c9b977",
-                    "#b99947",
-                    "#d9c967",
-                  ],
-                  borderWidth: 0,
-                },
-              ],
-            },
-            options: {
-              responsive: true,
-              plugins: {
-                legend: {
-                  position: "right",
-                  labels: { color: "#4a5568", boxWidth: 15 },
-                },
-              },
-            },
-          });
-
-          // Find top state by foie
-          const topState = states.reduce((a, b) =>
-            a.restaurants_with_foie > b.restaurants_with_foie ? a : b,
-          );
-          document.getElementById("finding-top-state").textContent =
-            topState.state_name;
         });
 
-      // Load price band data
-      fetch("/api/price-bands")
+      // Foie gras price distribution chart
+      fetch("/api/foie-price-dist")
         .then((res) => res.json())
-        .then((priceBands) => {
-          // Filter to only USD price bands and sort logically
-          const priceOrder = ['$30 and under', '$31 to $50', '$40 and under', '$41 to $100', '$50 and over', '$101 and over'];
-          let labels = Object.keys(priceBands).filter((k) => k && k.startsWith('$'));
-          labels = labels.sort((a, b) => {
-            const aIdx = priceOrder.indexOf(a);
-            const bIdx = priceOrder.indexOf(b);
-            if (aIdx === -1 && bIdx === -1) return a.localeCompare(b);
-            if (aIdx === -1) return 1;
-            if (bIdx === -1) return -1;
-            return aIdx - bIdx;
-          });
-          const data = labels.map((l) => priceBands[l]);
-
-          new Chart(document.getElementById("priceChart"), {
-            type: "pie",
-            data: {
-              labels: labels,
-              datasets: [
-                {
-                  data: data,
-                  backgroundColor: [
-                    "#2d5a4a",
-                    "#3d7a6a",
-                    "#4d9a8a",
-                    "#5dbaa0",
-                    "#6ddab0",
-                  ],
-                  borderWidth: 0,
-                },
-              ],
-            },
-            options: {
-              responsive: true,
-              plugins: {
-                legend: {
-                  position: "right",
-                  labels: { color: "#4a5568", boxWidth: 15 },
-                },
-              },
-            },
-          });
-        });
-
-      // Load stats for findings
-      fetch("/api/stats")
-        .then((res) => res.json())
-        .then((stats) => {
-          const pct = (
-            (stats.restaurants_with_foie / stats.total_restaurants) *
-            100
-          ).toFixed(1);
-          document.getElementById("finding-pct").textContent = pct + "%";
-          document.getElementById("stat-pct").textContent = pct + "%";
-
-          if (stats.min_foie_price && stats.max_foie_price) {
-            document.getElementById("finding-price-range").textContent =
-              `$${stats.min_foie_price} - $${stats.max_foie_price}`;
-          }
-          
-          // Price premium vs median menu price (excludes drinks/outliers)
-          if (stats.foie_price_premium_pct !== null && stats.median_food_price !== null) {
-            const premium = stats.foie_price_premium_pct;
-            const prefix = premium >= 0 ? '+' : '';
-            document.getElementById("finding-premium").textContent = 
-              `${prefix}${premium}%`;
-            document.getElementById("finding-premium-text").textContent = 
-              `premium vs median food price ($${stats.median_foie_price} vs $${stats.median_food_price})`;
-          }
-        });
-      
-      // Load menu section breakdown
-      fetch("/api/foie-sections")
-        .then((res) => res.json())
-        .then((sections) => {
-          // Define order for consistent display
-          const sectionOrder = ['Appetizers/Starters', 'Main Courses', 'Specials/Features', 'Other/Uncategorized'];
-          const labels = sectionOrder.filter(s => sections[s] > 0);
-          const data = labels.map(l => sections[l]);
-          
-          new Chart(document.getElementById("sectionChart"), {
-            type: "doughnut",
-            data: {
-              labels: labels,
-              datasets: [
-                {
-                  data: data,
-                  backgroundColor: [
-                    "#c9a957",
-                    "#3d7a6a",
-                    "#8b6b2a",
-                    "#9ca3af",
-                  ],
-                  borderWidth: 0,
-                },
-              ],
-            },
-            options: {
-              responsive: true,
-              plugins: {
-                legend: {
-                  position: "right",
-                  labels: { color: "#4a5568", boxWidth: 15 },
-                },
-              },
-            },
-          });
-        });
-        
-      // Load cuisine breakdown for foie gras restaurants
-      fetch("/api/foie-cuisines")
-        .then((res) => res.json())
-        .then((cuisines) => {
-          const labels = Object.keys(cuisines).slice(0, 8);
-          const data = labels.map(l => cuisines[l]);
-          
-          new Chart(document.getElementById("cuisineChart"), {
+        .then((dist) => {
+          new Chart(document.getElementById("priceDistChart"), {
             type: "bar",
             data: {
-              labels: labels,
+              labels: ["Under $15", "$15 - $24", "$25 - $34", "$35+"],
               datasets: [{
-                data: data,
-                backgroundColor: "#c9a957",
+                label: "Number of Items",
+                data: [dist.under_15, dist["15_to_25"], dist["25_to_35"], dist["35_plus"]],
+                backgroundColor: ["#9ca3af", "#c9a957", "#8b6b2a", "#2d5a4a"],
                 borderRadius: 4,
               }],
             },
             options: {
               responsive: true,
-              indexAxis: 'y',
               plugins: {
                 legend: { display: false },
               },
               scales: {
+                y: { 
+                  beginAtZero: true,
+                  title: { display: true, text: 'Number of Menu Items' },
+                  grid: { color: "rgba(0,0,0,0.1)" },
+                  ticks: { color: "#4a5568" }
+                },
                 x: { grid: { display: false }, ticks: { color: "#4a5568" } },
-                y: { grid: { display: false }, ticks: { color: "#4a5568" } },
               },
             },
           });
         });
         
-      // Load price tier prevalence
+      // Price tier prevalence (bar chart instead of pie)
       fetch("/api/price-tier-foie")
         .then((res) => res.json())
         .then((tiers) => {
@@ -500,55 +537,100 @@
               datasets: [{
                 label: "% with Foie Gras",
                 data: data,
-                backgroundColor: ["#9ca3af", "#c9a957", "#3d7a6a"],
+                backgroundColor: ["#9ca3af", "#c9a957", "#2d5a4a"],
                 borderRadius: 4,
               }],
             },
             options: {
               responsive: true,
+              indexAxis: 'y',
               plugins: {
                 legend: { display: false },
               },
               scales: {
-                y: { 
+                x: { 
                   beginAtZero: true,
                   max: 12,
-                  grid: { display: true, color: "#f0f0f0" },
+                  title: { display: true, text: '% of Restaurants with Foie Gras' },
+                  grid: { color: "#f0f0f0" },
                   ticks: { 
                     color: "#4a5568",
                     callback: (v) => v + "%"
                   }
                 },
-                x: { grid: { display: false }, ticks: { color: "#4a5568" } },
+                y: { grid: { display: false }, ticks: { color: "#4a5568" } },
               },
             },
           });
         });
         
-      // Load origin/sourcing data
-      fetch("/api/origin-data")
+      // Cuisine breakdown - sorted descending
+      fetch("/api/foie-cuisines")
         .then((res) => res.json())
-        .then((origins) => {
-          const labels = Object.keys(origins);
-          const data = labels.map(l => origins[l]);
+        .then((cuisines) => {
+          // Already sorted by data processor, take top 8
+          const entries = Object.entries(cuisines).slice(0, 8);
+          // Sort descending for display
+          entries.sort((a, b) => b[1] - a[1]);
           
-          new Chart(document.getElementById("originChart"), {
-            type: "doughnut",
+          new Chart(document.getElementById("cuisineChart"), {
+            type: "bar",
             data: {
-              labels: labels,
+              labels: entries.map(e => e[0]),
               datasets: [{
-                data: data,
-                backgroundColor: ["#c9a957", "#9ca3af"],
-                borderWidth: 0,
+                data: entries.map(e => e[1]),
+                backgroundColor: "#c9a957",
+                borderRadius: 4,
               }],
             },
             options: {
               responsive: true,
+              indexAxis: 'y',
               plugins: {
-                legend: {
-                  position: "right",
-                  labels: { color: "#4a5568", boxWidth: 15 },
+                legend: { display: false },
+              },
+              scales: {
+                x: { 
+                  grid: { display: false }, 
+                  ticks: { color: "#4a5568" },
+                  title: { display: true, text: 'Number of Restaurants' }
                 },
+                y: { grid: { display: false }, ticks: { color: "#4a5568" } },
+              },
+            },
+          });
+        });
+      
+      // Menu section breakdown
+      fetch("/api/foie-sections")
+        .then((res) => res.json())
+        .then((sections) => {
+          const entries = Object.entries(sections).filter(e => e[1] > 0);
+          entries.sort((a, b) => b[1] - a[1]);
+          
+          new Chart(document.getElementById("sectionChart"), {
+            type: "bar",
+            data: {
+              labels: entries.map(e => e[0]),
+              datasets: [{
+                data: entries.map(e => e[1]),
+                backgroundColor: ["#c9a957", "#3d7a6a", "#8b6b2a", "#9ca3af"],
+                borderRadius: 4,
+              }],
+            },
+            options: {
+              responsive: true,
+              indexAxis: 'y',
+              plugins: {
+                legend: { display: false },
+              },
+              scales: {
+                x: { 
+                  grid: { display: false }, 
+                  ticks: { color: "#4a5568" },
+                  title: { display: true, text: 'Number of Items' }
+                },
+                y: { grid: { display: false }, ticks: { color: "#4a5568" } },
               },
             },
           });

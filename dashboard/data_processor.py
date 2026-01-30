@@ -254,6 +254,84 @@ def process_data():
         "35_plus": int(len(foie_prices[foie_prices >= 35]))
     }
     
+    # === SAMPLE FOIE GRAS MENU ITEMS ===
+    # Get 10 sample items with restaurant info for display
+    sample_foie_items = []
+    foie_with_details = foie_items.merge(
+        restaurants_df[['restaurant_id', 'name', 'city', 'state', 'price_band']],
+        on='restaurant_id',
+        how='left'
+    )
+    # Get items with prices for better display
+    foie_with_prices = foie_with_details[foie_with_details['price'].notna()].copy()
+    
+    # Deduplicate by title + restaurant_id (same item on different menus)
+    foie_with_prices['dedup_key'] = foie_with_prices['title'].str.lower() + '_' + foie_with_prices['restaurant_id'].astype(str)
+    foie_with_prices = foie_with_prices.drop_duplicates(subset=['dedup_key'])
+    
+    # Prioritize items with descriptions for more interesting display
+    foie_with_desc = foie_with_prices[foie_with_prices['description'].notna() & (foie_with_prices['description'] != '')]
+    foie_without_desc = foie_with_prices[foie_with_prices['description'].isna() | (foie_with_prices['description'] == '')]
+    foie_sorted = pd.concat([foie_with_desc, foie_without_desc])
+    
+    for _, item in foie_sorted.head(10).iterrows():
+        sample_foie_items.append({
+            "title": item.get('title', ''),
+            "description": str(item.get('description', ''))[:200] if pd.notna(item.get('description')) else '',
+            "price": float(item['price']) if pd.notna(item.get('price')) else None,
+            "restaurant": item.get('name', ''),
+            "city": item.get('city', ''),
+            "state": item.get('state', ''),
+            "section": item.get('section', '')
+        })
+    
+    # === MULTIPLE OFFERINGS STATS ===
+    # Count restaurants with more than 1 foie gras item
+    foie_per_restaurant = foie_items.groupby('restaurant_id').size()
+    restaurants_with_multiple = len(foie_per_restaurant[foie_per_restaurant > 1])
+    multi_offering_pct = round(restaurants_with_multiple / len(foie_restaurant_ids) * 100, 1) if len(foie_restaurant_ids) > 0 else 0
+    avg_foie_per_restaurant = round(foie_per_restaurant.mean(), 1) if len(foie_per_restaurant) > 0 else 0
+    
+    # === EUROPEAN RESTAURANT INSIGHT ===
+    # Calculate European cuisine prevalence
+    european_keywords = ['french', 'italian', 'european', 'mediterranean', 'spanish', 'greek']
+    foie_restaurants_df = restaurants_df[restaurants_df['restaurant_id'].isin(foie_restaurant_ids)]
+    
+    # Count European foie restaurants
+    european_foie_count = 0
+    for cuisine in foie_restaurants_df['cuisine_type'].dropna():
+        if any(kw in cuisine.lower() for kw in european_keywords):
+            european_foie_count += 1
+    
+    # Count European restaurants overall
+    european_total_count = 0
+    for cuisine in restaurants_df['cuisine_type'].dropna():
+        if any(kw in cuisine.lower() for kw in european_keywords):
+            european_total_count += 1
+    
+    european_foie_pct = round(european_foie_count / len(foie_restaurant_ids) * 100, 1) if len(foie_restaurant_ids) > 0 else 0
+    european_total_pct = round(european_total_count / len(restaurants_df) * 100, 1) if len(restaurants_df) > 0 else 0
+    
+    european_insight = {
+        "foie_count": european_foie_count,
+        "foie_pct": european_foie_pct,
+        "total_count": european_total_count,
+        "total_pct": european_total_pct,
+    }
+    
+    # === STATE DATA WITH FOIE RATE ===
+    # Add foie gras rate to state data for layered visualization
+    for state in state_data:
+        if state['restaurant_count'] > 0:
+            state['foie_rate'] = round(state['restaurants_with_foie'] / state['restaurant_count'] * 100, 1)
+        else:
+            state['foie_rate'] = 0
+    
+    # Add to stats
+    stats['multi_offering_pct'] = multi_offering_pct
+    stats['avg_foie_per_restaurant'] = avg_foie_per_restaurant
+    stats['restaurants_with_multiple_foie'] = restaurants_with_multiple
+    
     return {
         "stats": stats,
         "states": state_data,
@@ -266,6 +344,8 @@ def process_data():
         "origin_data": origin_data,
         "price_comparison": price_comparison,
         "foie_price_dist": foie_price_dist,
+        "sample_foie_items": sample_foie_items,
+        "european_insight": european_insight,
     }
 
 

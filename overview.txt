@@ -1,0 +1,119 @@
+Background and Objectives
+Build and analyze a structured dataset of restaurants and menu items to understand the presence, framing, and pricing of foie gras on U.S. restaurant menus. This quantitative work is designed to complement existing qualitative and survey research and is not intended to estimate national prevalence.
+
+Two tasks
+Generate a dataset of restaurants and their menus
+Analyze the menus to answer key research questions
+
+Task 1. Generate a dataset of restaurants and their menus
+
+Goal: Develop a menu dataset for 500 restaurants, expected to yield roughly 3,000 to 5,000 menu items depending on menu length
+We plan to sample restaurants from the same states included in the qualitative and survey research, using proportional targets rather than equal counts to mirror the population weighted design of the original study, and within each state we select a small set of salient cities based on population size and policy or cultural influence so the quantitative analysis reflects the same underlying contexts examined qualitatively. 
+We chose a target of approximately 500 restaurants because this scale is large enough to reveal consistent patterns in foie gras availability, language, and pricing across cities and states, while remaining practical to collect and verify. It also prevents any single location from dominating the results and supports the qualitative findings without implying national representativeness.
+Cities listed at the end of the document
+
+Draft approach:
+Manually (ish) scrape ~30 restaurants and their menus
+Finalize schema and identify risks or other areas of messiness in the data extraction
+Develop a pipeline to build the dataset for 500 restaurants and their menu items
+
+Conceptual Schema:
+
+Restaurant
+restaurant_id
+name
+cuisine_type [e.g. French, American]
+city
+foie_banned [by city: y/n]
+state
+source_url
+date_accessed
+
+MenuItem
+menu_item_id
+restaurant_id
+title
+description [if available]
+section [e.g. appetizer, main course]
+price
+currency [assumed USD, but might be worth capturing]
+date_accessed
+
+Notes on other approaches to dataset generation
+ChatGPT Deep Research can generate small-scale examples
+Purchase data through a web scraping tool - might be useful, tbd
+https://hasdata.com/ 
+Doesn’t have menus out of the box, but could make generating restaurants for each city faster / easier
+https://botster.io/ 
+Purchase a dataset through an aggregator - too expensive / does’t work
+Yelp does not license menu data.
+Toast has a menu API - but must be a customer or a partner, and partners need to be tech companies building integrations that are useful to their customers (more here).  
+Use a free menu dataset - does not reflect the qualitative research study
+https://www.dolthub.com/repositories/dolthub/menus
+
+
+Task 2: Analyze the menus to answer key research questions
+
+High-level research questions
+That we can hope to answer through a combination of survey research and data analysis
+Does foie gras on menus affect restaurant choice likelihood and the types of price of meals people choose?
+How would a ban on foie gras economically affect restaurants?
+Is there a common replacement for foie gras on menus in areas where foie gras is banned?
+
+Sample data science research questions:
+In areas where it’s not banned, what % of restaurants list foie gras on the menu?
+In places where it is banned, is foie gras really off the menu?
+What is the distribution of menu items that do or do not include foie gras? 
+What is the average price / price distribution of foie gras and how does it compare to the other items? 
+What does an average meal cost at this restaurant (assuming a general assumption about 1 appetizer + 1 entree + 1 side, or similar)? How does the price of foie gras at that restaurant compare? For example, are foie gras items only 5% of a standard restaurant order?
+What category (e.g. appetizer) or type of dish does foie gras appear in?
+When foie gras is on the menu, how often is there mention of it being imported or from a specific place?
+Anything else I’m missing?
+
+Delivery
+All methodological decisions, assumptions, and known limitations should be documented in a brief methods memo delivered alongside the dataset.
+
+Restaurant breakdown:
+Florida - 107 restaurants
+Miami - 43
+Orlando - 32
+Tampa - 32
+Pennsylvania - 70 restaurants
+Philadelphia - 40
+Pittsburgh - 30
+Ohio - 60 restaurants
+Columbus - 20
+Cleveland - 20
+Cincinnati - 20
+North Carolina - 60 restaurants
+Charlotte - 25
+Raleigh-Durham - 25
+Asheville - 10
+New Jersey - 35 restaurants
+Jersey City - 15
+Newark - 10
+Princeton - 10
+Washington - 35 restaurants
+Seattle - 25
+Tacoma - 5
+Spokane - 5
+Massachusetts - 30 restaurants
+Boston - 20
+Cambridge - 5
+Worcester - 5
+Maryland - 30 restaurants
+Baltimore - 15
+Bethesda - 10
+Annapolis - 5
+Oregon - 28 restaurants
+Portland - 20
+Eugene - 4
+Bend - 4
+Colorado - 25 restaurants
+Denver - 18
+Boulder - 4
+Colorado Springs - 3
+District of Columbia - 20 restaurants
+Washington, DC - 20
+
+
