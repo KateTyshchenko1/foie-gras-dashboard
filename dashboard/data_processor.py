@@ -254,34 +254,32 @@ def process_data():
         "35_plus": int(len(foie_prices[foie_prices >= 35]))
     }
     
-    # === SAMPLE FOIE GRAS MENU ITEMS ===
-    # Get 10 sample items with restaurant info for display
-    sample_foie_items = []
+    # === ALL FOIE GRAS MENU ITEMS (comprehensive table) ===
+    # Get all foie gras items with restaurant info
+    all_foie_items = []
     foie_with_details = foie_items.merge(
-        restaurants_df[['restaurant_id', 'name', 'city', 'state', 'price_band']],
+        restaurants_df[['restaurant_id', 'name', 'city', 'state', 'price_band', 'cuisine_type']],
         on='restaurant_id',
         how='left'
     )
-    # Get items with prices for better display
-    foie_with_prices = foie_with_details[foie_with_details['price'].notna()].copy()
     
-    # Deduplicate by title + restaurant_id (same item on different menus)
-    foie_with_prices['dedup_key'] = foie_with_prices['title'].str.lower() + '_' + foie_with_prices['restaurant_id'].astype(str)
-    foie_with_prices = foie_with_prices.drop_duplicates(subset=['dedup_key'])
+    # Deduplicate by title + restaurant_id (same item on different menu types)
+    foie_with_details['dedup_key'] = foie_with_details['title'].str.lower() + '_' + foie_with_details['restaurant_id'].astype(str)
+    foie_deduped = foie_with_details.drop_duplicates(subset=['dedup_key'])
     
-    # Prioritize items with descriptions for more interesting display
-    foie_with_desc = foie_with_prices[foie_with_prices['description'].notna() & (foie_with_prices['description'] != '')]
-    foie_without_desc = foie_with_prices[foie_with_prices['description'].isna() | (foie_with_prices['description'] == '')]
-    foie_sorted = pd.concat([foie_with_desc, foie_without_desc])
+    # Sort by state, city, restaurant for organized display
+    foie_sorted = foie_deduped.sort_values(['state', 'city', 'name', 'title'])
     
-    for _, item in foie_sorted.head(10).iterrows():
-        sample_foie_items.append({
-            "title": item.get('title', ''),
-            "description": str(item.get('description', ''))[:200] if pd.notna(item.get('description')) else '',
-            "price": float(item['price']) if pd.notna(item.get('price')) else None,
+    for _, item in foie_sorted.iterrows():
+        all_foie_items.append({
             "restaurant": item.get('name', ''),
             "city": item.get('city', ''),
             "state": item.get('state', ''),
+            "cuisine": item.get('cuisine', ''),
+            "price_band": item.get('price_band', ''),
+            "item_name": item.get('title', ''),
+            "description": str(item.get('description', ''))[:150] if pd.notna(item.get('description')) else '',
+            "price": float(item['price']) if pd.notna(item.get('price')) else None,
             "section": item.get('section', '')
         })
     
@@ -327,6 +325,24 @@ def process_data():
         else:
             state['foie_rate'] = 0
     
+    # === ALL RESTAURANTS WITH FOIE GRAS ===
+    # Create a list of all restaurants serving foie gras
+    foie_restaurants_list = []
+    foie_restaurants_df = restaurants_df[restaurants_df['restaurant_id'].isin(foie_restaurant_ids)]
+    for _, rest in foie_restaurants_df.iterrows():
+        # Count foie gras items for this restaurant
+        foie_count = len(foie_items[foie_items['restaurant_id'] == rest['restaurant_id']])
+        foie_restaurants_list.append({
+            "name": rest.get('name', ''),
+            "city": rest.get('city', ''),
+            "state": rest.get('state', ''),
+            "cuisine": rest.get('cuisine', ''),
+            "price_band": rest.get('price_band', ''),
+            "foie_count": foie_count
+        })
+    # Sort by state, then city, then name
+    foie_restaurants_list = sorted(foie_restaurants_list, key=lambda x: (x['state'], x['city'], x['name']))
+    
     # Add to stats
     stats['multi_offering_pct'] = multi_offering_pct
     stats['avg_foie_per_restaurant'] = avg_foie_per_restaurant
@@ -344,8 +360,9 @@ def process_data():
         "origin_data": origin_data,
         "price_comparison": price_comparison,
         "foie_price_dist": foie_price_dist,
-        "sample_foie_items": sample_foie_items,
+        "all_foie_items": all_foie_items,
         "european_insight": european_insight,
+        "foie_restaurants": foie_restaurants_list,
     }
 
 

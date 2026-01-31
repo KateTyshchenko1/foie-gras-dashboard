@@ -411,96 +411,336 @@
     "25_to_35": 12,
     "35_plus": 4
   },
-  "sample_foie_items": [
+  "all_foie_items": [
     {
-      "title": "Foie Gras Mi-Cuit",
-      "description": "With cancha, raisins and toast",
-      "price": 27.0,
-      "restaurant": "EDAN BISTRO",
-      "city": "North Miami",
-      "state": "FL",
-      "section": "Mains"
+      "restaurant": "Carlos' Bistro",
+      "city": "Colorado Springs",
+      "state": "CO",
+      "cuisine": "",
+      "price_band": "$50 and over",
+      "item_name": "Seared Hudson Valley Foie Gras",
+      "description": "",
+      "price": 45.0,
+      "section": "Appetizers"
     },
     {
-      "title": "Homemade Duck Foie Gras Terrine with Apple Chutney and Toast",
-      "description": "Foie Gras maison, chutney de pommes et son toast.",
-      "price": 28.0,
+      "restaurant": "Le French 9&CO",
+      "city": "Denver",
+      "state": "CO",
+      "cuisine": "",
+      "price_band": "$31 to $50",
+      "item_name": "Foie Gras Torchon",
+      "description": "Fig, Cognac, Balsamic, Pistachios",
+      "price": 27.0,
+      "section": "Small Plates"
+    },
+    {
+      "restaurant": "1789 Restaurant",
+      "city": "Washington",
+      "state": "DC",
+      "cuisine": "",
+      "price_band": "$31 to $50",
+      "item_name": "Hudson Valley Foie Gras",
+      "description": "Cherry Mostarda, Brioche, & Duck Jus",
+      "price": 34.0,
+      "section": "Served Warm"
+    },
+    {
       "restaurant": "Amour de Miami",
       "city": "Miami",
       "state": "FL",
+      "cuisine": "",
+      "price_band": "$30 and under",
+      "item_name": "Homemade Duck Foie Gras Terrine with Apple Chutney and Toast",
+      "description": "Foie Gras maison, chutney de pommes et son toast.",
+      "price": 28.0,
       "section": "Appetizers"
     },
     {
-      "title": "Foie Gras Toast",
-      "description": "foie gras mousse | strawberry jam | poached rhubarb | pickled onion | sourdough",
-      "price": 18.0,
-      "restaurant": "Aleksandar",
-      "city": "Philadelphia",
-      "state": "PA",
-      "section": "Startes and Salads"
+      "restaurant": "Elcielo Miami",
+      "city": "Miami",
+      "state": "FL",
+      "cuisine": "",
+      "price_band": "$50 and over",
+      "item_name": "Tapioc\u0430 - Foie - Chontaduro",
+      "description": "",
+      "price": null,
+      "section": "The Experience"
     },
     {
-      "title": "Seared Hudson Valley Foie Gras",
-      "description": "apple tarte Tatin, pickled cherries",
-      "price": 45.0,
-      "restaurant": "DANTE",
-      "city": "Cleveland",
-      "state": "OH",
-      "section": "Specialty Meats"
+      "restaurant": "Seaspice Brasserie & Lounge",
+      "city": "Miami",
+      "state": "FL",
+      "cuisine": "",
+      "price_band": "$50 and over",
+      "item_name": "Hudson Valley Pan-Seared Foie Gras",
+      "description": "steamed brioche, onion marmalade, caramelized apple",
+      "price": null,
+      "section": "Appetizers"
     },
     {
-      "title": "Foie Gras",
-      "description": "seared foie gras, demi glaze",
-      "price": 18.0,
-      "restaurant": "Oliva Steakhouse",
-      "city": "Cleveland",
-      "state": "OH",
-      "section": "LA SALCA"
+      "restaurant": "La Grande Boucherie - Miami",
+      "city": "Miami Beach",
+      "state": "FL",
+      "cuisine": "",
+      "price_band": "$50 and over",
+      "item_name": "FOIE GRAS TORCHON",
+      "description": "Onion marmalade, blood orange jam, toasted baguette",
+      "price": 32.0,
+      "section": "HORS D\u2019OEUVRES ET SALADES"
     },
     {
-      "title": "Pate of Hudson Valley Foie Gras",
-      "description": "Brioche, radish, jam, sea salt",
-      "price": 23.0,
-      "restaurant": "Giovannis",
-      "city": "Cleveland",
-      "state": "OH",
-      "section": "Antipasti Freddi"
+      "restaurant": "La Grande Boucherie - Miami",
+      "city": "Miami Beach",
+      "state": "FL",
+      "cuisine": "",
+      "price_band": "$50 and over",
+      "item_name": "MOUSE DE FOIE GRAS",
+      "description": "Mango chutney, toast points, roasted hazelnuts",
+      "price": null,
+      "section": "HORS D\u2019 OEUVRES"
     },
     {
-      "title": "Torchon of Foie Gras",
-      "description": "Local nectarine mostarda, fleur de sel, toasted brioche, hazelnut tuille. Perfectly paired with a glass of Sauternes +$12",
+      "restaurant": "EDAN BISTRO",
+      "city": "North Miami",
+      "state": "FL",
+      "cuisine": "",
+      "price_band": "$31 to $50",
+      "item_name": "Foie Gras Mi-Cuit",
+      "description": "With cancha, raisins and toast",
+      "price": 27.0,
+      "section": "Mains"
+    },
+    {
+      "restaurant": "Meat Market Tampa",
+      "city": "Tampa",
+      "state": "FL",
+      "cuisine": "",
+      "price_band": "$50 and over",
+      "item_name": "SEARED FOIE GRAS ROSSINI",
+      "description": "",
+      "price": null,
+      "section": "ENHANCE YOUR SELECTION"
+    },
+    {
+      "restaurant": "Aquitaine - Boston",
+      "city": "Boston",
+      "state": "MA",
+      "cuisine": "",
+      "price_band": "$30 and under",
+      "item_name": "Black Truffle & Foie Gras Tornchon",
+      "description": "huckleberry confiture, pickled jardiniere, toasted brioche",
+      "price": 22.95,
+      "section": "Soups, Salads, Appitizers"
+    },
+    {
+      "restaurant": "Clio",
+      "city": "Boston",
+      "state": "MA",
+      "cuisine": "",
+      "price_band": "$50 and over",
+      "item_name": "Foie Gras Laquee",
+      "description": "Buttermilk Maple Puree, Pickled Pearl Onion, Sorrel",
       "price": 25.0,
+      "section": "A La Carte"
+    },
+    {
+      "restaurant": "Clio",
+      "city": "Boston",
+      "state": "MA",
+      "cuisine": "",
+      "price_band": "$50 and over",
+      "item_name": "Mousse au Foie Gras",
+      "description": "English Peas, Long Pepper Morel Mushrooms",
+      "price": null,
+      "section": "9 Course"
+    },
+    {
+      "restaurant": "Nine",
+      "city": "Boston",
+      "state": "MA",
+      "cuisine": "",
+      "price_band": "$50 and over",
+      "item_name": "Seared Hudson Valley Foie Gras",
+      "description": "olive oil cake, golden sesame butter, pomegranate, shiso",
+      "price": 44.0,
+      "section": "Mid Course"
+    },
+    {
+      "restaurant": "Le Vieux Logis",
+      "city": "Bethesda",
+      "state": "MD",
+      "cuisine": "",
+      "price_band": "$31 to $50",
+      "item_name": "Foie De Veau \"Lyonnaise\"",
+      "description": "Saut\u00e9ed calf liver with caramelized onions, potato gratin, seasonal vegetables",
+      "price": 26.0,
+      "section": "Main Courses"
+    },
+    {
+      "restaurant": "Le Vieux Logis",
+      "city": "Bethesda",
+      "state": "MD",
+      "cuisine": "",
+      "price_band": "$31 to $50",
+      "item_name": "Terrine de foie gras, toasted brioche",
+      "description": "mango raisins compote",
+      "price": 19.0,
+      "section": "Appetizers"
+    },
+    {
       "restaurant": "Mariposa",
       "city": "Charlotte",
       "state": "NC",
+      "cuisine": "",
+      "price_band": "$31 to $50",
+      "item_name": "Torchon of Foie Gras",
+      "description": "Local nectarine mostarda, fleur de sel, toasted brioche, hazelnut tuille. Perfectly paired with a glass of Sauternes +$12",
+      "price": 25.0,
       "section": "Small Shareables"
     },
     {
-      "title": "Seared Foie Gras* (GF)",
-      "description": "over Apple Chutney, Bacon Praline, and Cherry Gastrique",
-      "price": 21.0,
       "restaurant": "The Fig Tree Restaurant - Charlotte, NC",
       "city": "Charlotte",
       "state": "NC",
+      "cuisine": "",
+      "price_band": "$50 and over",
+      "item_name": "Seared Foie Gras* (GF)",
+      "description": "over Apple Chutney, Bacon Praline, and Cherry Gastrique",
+      "price": 21.0,
       "section": "Appetizers"
     },
     {
-      "title": "Pat\u00e9 of Duck Liver & Foie Gras",
-      "description": "toast rounds",
-      "price": 19.0,
       "restaurant": "Bistro La Source",
       "city": "Jersey City",
       "state": "NJ",
+      "cuisine": "",
+      "price_band": "$30 and under",
+      "item_name": "Pat\u00e9 of Duck Liver & Foie Gras",
+      "description": "toast rounds",
+      "price": 19.0,
       "section": "Starters"
     },
     {
-      "title": "Seared Hudson Valley Foie Gras",
-      "description": "with fig br\u00fbl\u00e9e, pomegranate",
-      "price": 28.0,
       "restaurant": "Bistro La Source",
       "city": "Jersey City",
       "state": "NJ",
+      "cuisine": "",
+      "price_band": "$30 and under",
+      "item_name": "Seared Hudson Valley Foie Gras",
+      "description": "with fig br\u00fbl\u00e9e, pomegranate",
+      "price": 28.0,
       "section": "Starters"
+    },
+    {
+      "restaurant": "DANTE",
+      "city": "Cleveland",
+      "state": "OH",
+      "cuisine": "",
+      "price_band": "$31 to $50",
+      "item_name": "Add Foie Gras",
+      "description": "",
+      "price": 15.0,
+      "section": "Soup"
+    },
+    {
+      "restaurant": "DANTE",
+      "city": "Cleveland",
+      "state": "OH",
+      "cuisine": "",
+      "price_band": "$31 to $50",
+      "item_name": "Seared Hudson Valley Foie Gras",
+      "description": "apple tarte Tatin, pickled cherries",
+      "price": 45.0,
+      "section": "Specialty Meats"
+    },
+    {
+      "restaurant": "DANTE",
+      "city": "Cleveland",
+      "state": "OH",
+      "cuisine": "",
+      "price_band": "$31 to $50",
+      "item_name": "Whole Lobe of Foie Gras",
+      "description": "Seasonal Preparation",
+      "price": null,
+      "section": "Uncategorised"
+    },
+    {
+      "restaurant": "Giovannis",
+      "city": "Cleveland",
+      "state": "OH",
+      "cuisine": "",
+      "price_band": "$31 to $50",
+      "item_name": "Pate of Hudson Valley Foie Gras",
+      "description": "Brioche, radish, jam, sea salt",
+      "price": 23.0,
+      "section": "Antipasti Freddi"
+    },
+    {
+      "restaurant": "Oliva Steakhouse",
+      "city": "Cleveland",
+      "state": "OH",
+      "cuisine": "",
+      "price_band": "$50 and over",
+      "item_name": "Foie Gras",
+      "description": "seared foie gras, demi glaze",
+      "price": 18.0,
+      "section": "LA SALCA"
+    },
+    {
+      "restaurant": "FYR Short North",
+      "city": "Columbus",
+      "state": "OH",
+      "cuisine": "",
+      "price_band": "$31 to $50",
+      "item_name": "Foie Gras",
+      "description": "",
+      "price": 15.0,
+      "section": "Enhance"
+    },
+    {
+      "restaurant": "FYR Short North",
+      "city": "Columbus",
+      "state": "OH",
+      "cuisine": "",
+      "price_band": "$31 to $50",
+      "item_name": "Foie Gras ",
+      "description": "",
+      "price": 15.0,
+      "section": "Enhance"
+    },
+    {
+      "restaurant": "Morton's The Steakhouse - Portland",
+      "city": "Portland",
+      "state": "OR",
+      "cuisine": "",
+      "price_band": "$50 and over",
+      "item_name": "Foie Gras-Cognac Butter**",
+      "description": "",
+      "price": null,
+      "section": "Upgrades"
+    },
+    {
+      "restaurant": "Aleksandar",
+      "city": "Philadelphia",
+      "state": "PA",
+      "cuisine": "",
+      "price_band": "$31 to $50",
+      "item_name": "Foie Gras Toast",
+      "description": "foie gras mousse | strawberry jam | poached rhubarb | pickled onion | sourdough",
+      "price": 18.0,
+      "section": "Startes and Salads"
+    },
+    {
+      "restaurant": "Copperleaf Restaurant & Bar",
+      "city": "Seattle",
+      "state": "WA",
+      "cuisine": "",
+      "price_band": "$31 to $50",
+      "item_name": "Seared Foie Gras",
+      "description": "Cornmeal Spoon Bread | Apple Butter | Saba",
+      "price": 26.0,
+      "section": "To Begin"
     }
   ],
   "european_insight": {
@@ -508,5 +748,207 @@
     "foie_pct": 65.2,
     "total_count": 203,
     "total_pct": 36.8
-  }
+  },
+  "foie_restaurants": [
+    {
+      "name": "Carlos' Bistro",
+      "city": "Colorado Springs",
+      "state": "CO",
+      "cuisine": "",
+      "price_band": "$50 and over",
+      "foie_count": 1
+    },
+    {
+      "name": "Le French 9&CO",
+      "city": "Denver",
+      "state": "CO",
+      "cuisine": "",
+      "price_band": "$31 to $50",
+      "foie_count": 2
+    },
+    {
+      "name": "1789 Restaurant",
+      "city": "Washington",
+      "state": "DC",
+      "cuisine": "",
+      "price_band": "$31 to $50",
+      "foie_count": 1
+    },
+    {
+      "name": "Amour de Miami",
+      "city": "Miami",
+      "state": "FL",
+      "cuisine": "",
+      "price_band": "$30 and under",
+      "foie_count": 1
+    },
+    {
+      "name": "Elcielo Miami",
+      "city": "Miami",
+      "state": "FL",
+      "cuisine": "",
+      "price_band": "$50 and over",
+      "foie_count": 2
+    },
+    {
+      "name": "Elcielo Miami",
+      "city": "Miami",
+      "state": "FL",
+      "cuisine": "",
+      "price_band": "$50 and over",
+      "foie_count": 2
+    },
+    {
+      "name": "Seaspice Brasserie & Lounge",
+      "city": "Miami",
+      "state": "FL",
+      "cuisine": "",
+      "price_band": "$50 and over",
+      "foie_count": 1
+    },
+    {
+      "name": "La Grande Boucherie - Miami",
+      "city": "Miami Beach",
+      "state": "FL",
+      "cuisine": "",
+      "price_band": "$50 and over",
+      "foie_count": 3
+    },
+    {
+      "name": "EDAN BISTRO",
+      "city": "North Miami",
+      "state": "FL",
+      "cuisine": "",
+      "price_band": "$31 to $50",
+      "foie_count": 1
+    },
+    {
+      "name": "Meat Market Tampa",
+      "city": "Tampa",
+      "state": "FL",
+      "cuisine": "",
+      "price_band": "$50 and over",
+      "foie_count": 1
+    },
+    {
+      "name": "Aquitaine - Boston",
+      "city": "Boston",
+      "state": "MA",
+      "cuisine": "",
+      "price_band": "$30 and under",
+      "foie_count": 1
+    },
+    {
+      "name": "Clio",
+      "city": "Boston",
+      "state": "MA",
+      "cuisine": "",
+      "price_band": "$50 and over",
+      "foie_count": 2
+    },
+    {
+      "name": "Nine",
+      "city": "Boston",
+      "state": "MA",
+      "cuisine": "",
+      "price_band": "$50 and over",
+      "foie_count": 1
+    },
+    {
+      "name": "Le Vieux Logis",
+      "city": "Bethesda",
+      "state": "MD",
+      "cuisine": "",
+      "price_band": "$31 to $50",
+      "foie_count": 3
+    },
+    {
+      "name": "Mariposa",
+      "city": "Charlotte",
+      "state": "NC",
+      "cuisine": "",
+      "price_band": "$31 to $50",
+      "foie_count": 1
+    },
+    {
+      "name": "The Fig Tree Restaurant - Charlotte, NC",
+      "city": "Charlotte",
+      "state": "NC",
+      "cuisine": "",
+      "price_band": "$50 and over",
+      "foie_count": 1
+    },
+    {
+      "name": "Bistro La Source",
+      "city": "Jersey City",
+      "state": "NJ",
+      "cuisine": "",
+      "price_band": "$30 and under",
+      "foie_count": 2
+    },
+    {
+      "name": "DANTE",
+      "city": "Cleveland",
+      "state": "OH",
+      "cuisine": "",
+      "price_band": "$31 to $50",
+      "foie_count": 6
+    },
+    {
+      "name": "DANTE",
+      "city": "Cleveland",
+      "state": "OH",
+      "cuisine": "",
+      "price_band": "$31 to $50",
+      "foie_count": 6
+    },
+    {
+      "name": "Giovannis",
+      "city": "Cleveland",
+      "state": "OH",
+      "cuisine": "",
+      "price_band": "$31 to $50",
+      "foie_count": 1
+    },
+    {
+      "name": "Oliva Steakhouse",
+      "city": "Cleveland",
+      "state": "OH",
+      "cuisine": "",
+      "price_band": "$50 and over",
+      "foie_count": 1
+    },
+    {
+      "name": "FYR Short North",
+      "city": "Columbus",
+      "state": "OH",
+      "cuisine": "",
+      "price_band": "$31 to $50",
+      "foie_count": 3
+    },
+    {
+      "name": "Morton's The Steakhouse - Portland",
+      "city": "Portland",
+      "state": "OR",
+      "cuisine": "",
+      "price_band": "$50 and over",
+      "foie_count": 1
+    },
+    {
+      "name": "Aleksandar",
+      "city": "Philadelphia",
+      "state": "PA",
+      "cuisine": "",
+      "price_band": "$31 to $50",
+      "foie_count": 2
+    },
+    {
+      "name": "Copperleaf Restaurant & Bar",
+      "city": "Seattle",
+      "state": "WA",
+      "cuisine": "",
+      "price_band": "$31 to $50",
+      "foie_count": 1
+    }
+  ]
 }

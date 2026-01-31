@@ -168,31 +168,35 @@
     <!-- Main Content -->
     <main class="main-content">
       
-      <!-- Study Context (moved to top per feedback) -->
-      <section class="study-context">
-        <h2>About This Study</h2>
-        <div class="context-grid">
-          <div class="context-item">
-            <div class="context-number">{{ stats.total_restaurants }}</div>
-            <div class="context-label">Restaurants Analyzed</div>
-          </div>
-          <div class="context-item">
-            <div class="context-number">{{ "{:,}".format(stats.total_menu_items) }}</div>
-            <div class="context-label">Menu Items Collected</div>
-          </div>
-          <div class="context-item">
-            <div class="context-number">30</div>
-            <div class="context-label">Cities Across 10 States + DC</div>
-          </div>
-          <div class="context-item">
-            <div class="context-number">{{ stats.total_foie_gras_items }}</div>
-            <div class="context-label">Foie Gras Items Found</div>
-          </div>
+      <!-- Study Context (moved to top per feedback) - with card boxes and icons -->
+      <section class="hero-stats" style="margin-bottom: 2rem;">
+        <div class="stat-card">
+          <div class="stat-icon">🍽️</div>
+          <div class="stat-value">{{ stats.total_restaurants }}</div>
+          <div class="stat-label">Restaurants Analyzed</div>
         </div>
-        <p style="margin-top: 1rem; opacity: 0.9; font-size: 0.9rem;">
-          Data collected from OpenTable restaurant menus in January 2026. This study covers states where foie gras sales are currently legal to understand the potential impact of proposed bans.
-        </p>
+        <div class="stat-card">
+          <div class="stat-icon">📋</div>
+          <div class="stat-value">{{ "{:,}".format(stats.total_menu_items) }}</div>
+          <div class="stat-label">Menu Items Collected</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">🏙️</div>
+          <div class="stat-value">30</div>
+          <div class="stat-label">Cities Across 10 States + DC</div>
+        </div>
+        <div class="stat-card highlight">
+          <div class="stat-icon"><img src="/static/goose-icon.png" alt="Goose" class="stat-icon-img"></div>
+          <div class="stat-value">{{ stats.total_foie_gras_items }}</div>
+          <div class="stat-label">Foie Gras Items Found</div>
+        </div>
       </section>
+      
+      <div style="background: #f8f9fa; padding: 1rem 1.5rem; border-radius: 12px; margin-bottom: 2rem; border-left: 4px solid #2d5a4a;">
+        <p style="margin: 0; color: #4a5568; font-size: 0.95rem;">
+          <strong style="color: #2d5a4a;">About This Study:</strong> Data collected from OpenTable restaurant menus in January 2026. This study covers states where foie gras sales are currently legal to understand the potential impact of proposed bans.
+        </p>
+      </div>
 
       <!-- Key Insights Section -->
       <section class="insights-section">
@@ -223,13 +227,13 @@
         
         <!-- Insight 3: Premium Positioning -->
         <div class="insight-card">
-          <h3>💰 Premium Menu Positioning</h3>
+          <h3>💰 Premium Menu Item Pricing</h3>
           <p class="insight-text">
-            Foie gras dishes are priced at <span class="highlight" id="insight-premium">--</span> more than the median menu item 
+            Foie gras menu items are priced at <span class="highlight" id="insight-premium">--</span> more than the median menu item price 
             (<span id="insight-foie-price">$--</span> vs <span id="insight-median-price">$--</span>).
           </p>
           <div class="insight-supporting">
-            <strong>Price range:</strong> <span id="insight-price-range">$-- - $--</span> for foie gras dishes. This premium pricing suggests foie gras serves as a signature or high-margin menu item for many restaurants.
+            <strong>Menu item price range:</strong> <span id="insight-price-range">$-- - $--</span> for foie gras dishes. This premium pricing suggests foie gras serves as a signature or high-margin menu item for many restaurants.
           </div>
         </div>
         
@@ -257,24 +261,26 @@
         </div>
       </section>
 
-      <!-- Sample Menu Items -->
+      <!-- All Foie Gras Menu Items - Comprehensive Table -->
       <section class="sample-items-section">
-        <h2>Sample Foie Gras Menu Items</h2>
-        <p class="chart-context">A selection of foie gras dishes from our dataset, showing how restaurants prepare and price this ingredient.</p>
-        <table class="sample-items-table">
-          <thead>
-            <tr>
-              <th>Item Name</th>
-              <th>Description</th>
-              <th>Price</th>
-              <th>Restaurant</th>
-              <th>Location</th>
-            </tr>
-          </thead>
-          <tbody id="sample-items-body">
-            <tr><td colspan="5">Loading...</td></tr>
-          </tbody>
-        </table>
+        <h2>Complete Foie Gras Menu Items</h2>
+        <p class="chart-context">All {{ stats.total_foie_gras_items }} foie gras menu items found across {{ stats.restaurants_with_foie }} restaurants, sorted by state. Prices shown are individual menu item prices.</p>
+        <div style="max-height: 500px; overflow-y: auto;">
+          <table class="sample-items-table">
+            <thead style="position: sticky; top: 0; background: white; z-index: 10;">
+              <tr>
+                <th>Restaurant</th>
+                <th>Location</th>
+                <th>Menu Item</th>
+                <th>Description</th>
+                <th>Price</th>
+              </tr>
+            </thead>
+            <tbody id="all-foie-items-body">
+              <tr><td colspan="5">Loading...</td></tr>
+            </tbody>
+          </table>
+        </div>
       </section>
 
       <!-- Charts Row: State Analysis -->
@@ -376,22 +382,22 @@
           }
         });
       
-      // Load sample menu items
-      fetch("/api/sample-foie-items")
+      // Load all foie gras menu items (comprehensive table)
+      fetch("/api/all-foie-items")
         .then((res) => res.json())
         .then((items) => {
-          const tbody = document.getElementById("sample-items-body");
+          const tbody = document.getElementById("all-foie-items-body");
           if (items.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="5">No sample items available</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="5">No items found</td></tr>';
             return;
           }
           tbody.innerHTML = items.map(item => `
             <tr>
-              <td class="item-title">${item.title}</td>
+              <td class="item-title">${item.restaurant}</td>
+              <td>${item.city}, ${item.state}</td>
+              <td style="font-weight: 500;">${item.item_name}</td>
               <td class="item-description">${item.description || '—'}</td>
               <td class="item-price">${item.price ? '$' + item.price.toFixed(0) : '—'}</td>
-              <td>${item.restaurant}</td>
-              <td>${item.city}, ${item.state}</td>
             </tr>
           `).join('');
         });

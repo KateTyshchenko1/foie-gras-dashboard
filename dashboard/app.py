@@ -109,11 +109,11 @@ def api_foie_price_dist():
     return jsonify(data.get('foie_price_dist', {}))
 
 
-@app.route('/api/sample-foie-items')
-def api_sample_foie_items():
-    """Return sample foie gras menu items with details."""
+@app.route('/api/all-foie-items')
+def api_all_foie_items():
+    """Return all foie gras menu items with full details."""
     data = get_data()
-    return jsonify(data.get('sample_foie_items', []))
+    return jsonify(data.get('all_foie_items', []))
 
 
 @app.route('/api/european-insight')
@@ -121,6 +121,13 @@ def api_european_insight():
     """Return European restaurant insight data."""
     data = get_data()
     return jsonify(data.get('european_insight', {}))
+
+
+@app.route('/api/foie-restaurants')
+def api_foie_restaurants():
+    """Return list of all restaurants with foie gras."""
+    data = get_data()
+    return jsonify(data.get('foie_restaurants', []))
 
 
 if __name__ == '__main__':
